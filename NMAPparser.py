@@ -5,15 +5,17 @@ This program rips thru text dumps of NMAP text output and puts it into a pickled
 
 import re
 import cPickle as pickle
+import datetime
 
 data = ! cat *
 newDict = {}
-pattern = re.compile('[0-9]{1,5}/tcp')
 newList = []
-splitLine = []
+splitLine = ['0.0.0.0','0.0.0.0']
+pattern = re.compile('[0-9]{1,5}/tcp')
+nowTime = datetime.datetime.now().strftime('%Y-%m-%d')
 
 for line in data:
-  if 'Nmap scan report for ' in line:
+	if 'Nmap scan report for ' in line:
 		cutLine = line[21:]
 		splitLine = cutLine.split(' ')
 		if len(splitLine) == 1:
@@ -21,8 +23,8 @@ for line in data:
 		if len(splitLine) == 2:
 			asdf = splitLine[1].lstrip('(')
 			asdf = asdf.rstrip(')')
-			splitLine.insert(1, asdf)
-			splitLine.pop()
+		splitLine.insert(1, asdf)
+		splitLine.pop()
 
 	match = pattern.search(line)
 	if match: # looking for listings of open ports
@@ -33,4 +35,4 @@ for line in data:
 		newList = []
 
 # saving pickled file to disk
-pickle.dump( newDict, open( "saveNewDict.p", "wb", True ) )
+pickle.dump( newDict, open( "saveNewDict."+nowTime, "wb", True ) )
