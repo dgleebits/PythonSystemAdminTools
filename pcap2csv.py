@@ -10,7 +10,7 @@ import re
 import datetime
 
 
-fh = open('outputfile2.txt')
+fh = open('outputfile.txt')
 data = fh.readlines()
 
 fn = '    Frame Number: '
