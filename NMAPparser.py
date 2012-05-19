@@ -31,7 +31,7 @@ for line in data:
 		newList.append(match.group())
 
 	if len(line) == 0: # this is the end scan object and creates a DICT with all the objects
-		newDict [splitLine[0]]=[splitLine[1],[newList]]
+		newDict [splitLine[0]]=[splitLine[1],newList]
 		newList = []
 
 # saving pickled file to disk
