@@ -166,5 +166,28 @@ Data (1442 bytes)
 # ValidHostnameRegex = "^(([a-zA-Z]|[a-zA-Z][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z]|[A-Za-z][A-Za-z0-9\-]*[A-Za-z0-9])$";
 
 
+'''
+import re, urllib2
 
+ips = re.findall('(?:[\d]{1,3})\.(?:[\d]{1,3})\.(?:[\d]{1,3})\.(?:[\d]{1,3})', page)
+urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', page)
+emails = re.findall('[a-zA-Z0-9+_\-\.]+@[0-9a-zA-Z][.-0-9a-zA-Z]*.[a-zA-Z]+', page)
+page = ''.join( urllib2.urlopen('http://www.example.com/index.html').readlines() )
+
+def date_from_filename (filename):
+    m = re.match(".*?[0-9]{2}-(?P<YEAR>[0-9]{4})(?P<MONTH>[0-9]{2})(?P<DAY>[0-9]{2})(?P<HOUR>[0-9]{2})(?P<MIN>[0-9]{2})(?P<SEC>[0-9]{2})-(?P<SEQ>[0-9]{2}).*?", filename)
+    if m is None:
+        print "Bad date parse in filename:", filename
+        return None
+    day   = int(m.group('DAY'))
+    month = int(m.group('MONTH'))
+    year  = int(m.group('YEAR'))
+    hour  = int(m.group('HOUR'))
+    min   = int(m.group('MIN'))
+    sec   = int(m.group('SEC'))
+    dts = (year, month, day, hour, min, sec, 0, 1, -1)
+    return dts
+	
+re.search ("(?is)username.*?password", string)
+'''
 		
