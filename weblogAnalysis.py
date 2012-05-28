@@ -27,3 +27,20 @@ count_ip.most_common()
 count_requested.most_common()
 count_method.most_common()
 count_referal.most_common()
+
+'''
+This is how you do the same thing in pandas!!!!!!!!!!
+
+import pandas
+data = open('www-media.log').readlines()
+frame = pandas.DataFrame([x.split() for x in data])
+
+countIP = frame[0].value_counts()
+countRequested = frame[6].value_counts()
+countReferal = frame[10].value_counts()
+
+print countIP
+print countRequested
+print countReferal
+
+'''
