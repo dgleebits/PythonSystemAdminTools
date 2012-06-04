@@ -1,0 +1,5 @@
+tshark -o column.format:""Source", "%s", "Destination", "%d"" -z conv,tcp -r inFile.pcap > outFile.txt
+
+tshark -V -r infile.pcap > outputfile.txt
+
+tshark -o column.format:""No.", "%m", "Time", "%Yt", "Time", "%Tt", "Time", "%Rt", "Source", "%s", "Destination", "%d", "Protocol", "%p", "Info", "%i", "Length", "%L"" -z conv,tcp -r inFile.cap > outFile.txt
