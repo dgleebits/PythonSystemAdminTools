@@ -36,7 +36,15 @@ with open("test2.txt", "a") as myfile:
 									final8 = l1+l2+l3+l4+l5+l6+l7+l8+'\n'
     									myfile.write(final8)
 
-
+import hashlib
+fh = open ('test2.txt')
+fw = open ('sha1Hashed.txt', 'w')
+for i in range(10000):
+    password = fh.readline().strip()
+    hex = hashlib.sha1(password).hexdigest()
+    fw.write(password+','+hex+'\n')
+fh.close
+fw.close
 '''
 # terrible code to generate 8 char wordlist
 
