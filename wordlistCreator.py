@@ -1,3 +1,43 @@
+alphabet='abcdefghijklmnopqrstuvwxyz'
+numbers = '0123456789'
+upperAlpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+with open("test2.txt", "a") as myfile:
+
+	for l1 in alphabet:
+		final1 = l1+'\n'
+		myfile.write(final1)
+		
+		for l2 in alphabet:
+			final2 = l1+l2+'\n'
+			myfile.write(final2)
+			
+			for l3 in alphabet:
+				final3 = l1+l2+l3+'\n'
+				myfile.write(final3)
+				
+				for l4 in alphabet:
+					final4 = l1+l2+l3+l4+'\n'
+					myfile.write(final4)
+					
+					for l5 in alphabet:
+						final5 = l1+l2+l3+l4+l5+'\n'
+						myfile.write(final5)
+						
+						for l6 in alphabet:
+							final6 = l1+l2+l3+l4+l5+l6+'\n'
+							myfile.write(final6)
+							
+							for l7 in alphabet:
+								final7 = l1+l2+l3+l4+l5+l6+l7+'\n'
+								myfile.write(final7)
+								
+								for l8 in alphabet:
+									final8 = l1+l2+l3+l4+l5+l6+l7+l8+'\n'
+    									myfile.write(final8)
+
+
+'''
 # terrible code to generate 8 char wordlist
 
 
@@ -29,3 +69,6 @@ for l1 in alphabet:
     								myfile.write(final6)
     								myfile.write(final7)
     								myfile.write(final8)
+    								
+    								'''
+    								
