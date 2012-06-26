@@ -5,7 +5,8 @@
 # modified to process in python Dan Gleebits 26/06/2012
 
 from commands import getoutput
-import sys, re, simplejson, urllib2, webbrowser
+import sys, re, urllib2, webbrowser
+import json as simplejson
 
 locationRequest = {}
 path2WiFi = '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport scan'
