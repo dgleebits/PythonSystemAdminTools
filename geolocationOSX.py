@@ -18,9 +18,9 @@ neighborWiFi = getoutput(path2WiFi)
 neighborWiFi = neighborWiFi.split('\n')
 neighborWiFi = neighborWiFi[1:len(neighborWiFi)]
 
-print "[+] Creating Google request"
+print "[+] Creating HTML request"
 locationRequest={ 
-  		"version":"1.1.0",
+		"version":"1.1.0",
 		"request_address":False, 
 		"wifi_towers":[{"mac_address":x.split()[1].replace(":","-"),"signal_strength":abs(int(x.split()[2]))} for x in neighborWiFi]
 		}
@@ -31,4 +31,5 @@ output = simplejson.loads(urllib2.urlopen('https://www.google.com/loc/json', dat
 
 print "[+] Google Map"
 print "http://maps.google.com/maps?q="+str(output["location"]["latitude"])+","+str(output["location"]["longitude"])
-
+googleMapWebpage = "http://maps.google.com/maps?q="+str(output["location"]["latitude"])+","+str(output["location"]["longitude"])
+webbrowser.open(googleMapWebpage)
