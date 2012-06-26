@@ -9,12 +9,21 @@ import sys, re, simplejson, urllib2, webbrowser
 
 locationRequest = {}
 path2WiFi = '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport scan'
+macMatch = '([a-fA-F0-9]{2}[:|\-]?){6}'
+count = 0
 
 # running network WiFi scan
 print "[+] Scanning network"
 neighborWiFi = getoutput(path2WiFi)
 neighborWiFi = neighborWiFi.split('\n')
-neighborWiFi = neighborWiFi[1:len(neighborWiFi)]
+
+# cleaning up bad data		
+for line in neighborWiFi:
+	a = re.compile(macMatch).search(line)
+	if a:
+		count +=1
+	else:
+		neighborWiFi.pop(count)
 
 print "[+] Creating HTML request"
 locationRequest={ 
