@@ -7,8 +7,6 @@
 from commands import getoutput
 import sys, re, simplejson, urllib2, webbrowser
 
-macAddress = ''
-signalStrength = 0
 locationRequest = {}
 path2WiFi = '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport scan'
 
