@@ -5,7 +5,7 @@
 # modified to process in python Dan Gleebits 26/06/2012
 
 from commands import getoutput
-import sys, re, urllib2, webbrowser
+import re, urllib2, webbrowser
 import json as simplejson
 
 locationRequest = {}
