@@ -2,7 +2,7 @@
 # Julien Deudon (initbrain) - 20/03/2012 15h35
 # modified to english version by Dan Gleebits 20/06/2012
 # modified to run on OS X by James Armitage 25/06/2012
-# modified to pure python Dan Gleebits 26/06/2012
+# modified to process in python Dan Gleebits 26/06/2012
 
 from commands import getoutput
 import sys, re, simplejson, urllib2, webbrowser
