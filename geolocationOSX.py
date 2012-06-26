@@ -18,7 +18,7 @@ neighborWiFi = getoutput(path2WiFi)
 neighborWiFi = neighborWiFi.split('\n')
 neighborWiFi = neighborWiFi[1:len(neighborWiFi)]
 
-print "[+] Creating HTML request"
+print "[+] Creating Google request"
 locationRequest={ 
   		"version":"1.1.0",
 		"request_address":False, 
