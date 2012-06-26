@@ -20,10 +20,10 @@ neighborWiFi = neighborWiFi[1:len(neighborWiFi)]
 
 print "[+] Creating HTML request"
 locationRequest={ 
-  			"version":"1.1.0",
-			    "request_address":False, 
-			    "wifi_towers":[{"mac_address":x.split()[1].replace(":","-"),"signal_strength":abs(int(x.split()[2]))} for x in neighborWiFi]
-				}
+  		"version":"1.1.0",
+		"request_address":False, 
+		"wifi_towers":[{"mac_address":x.split()[1].replace(":","-"),"signal_strength":abs(int(x.split()[2]))} for x in neighborWiFi]
+		}
 				
 print "[+] Sending the request to Google"
 data = simplejson.JSONEncoder().encode(locationRequest)
