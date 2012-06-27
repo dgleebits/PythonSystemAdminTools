@@ -27,10 +27,10 @@ for line in neighborWiFi:
 		
 print "[+] Creating HTML request"
 locationRequest={
-				"version":"1.1.0",
-				"request_address":False, 
-				"wifi_towers":[{"mac_address":"00-00-00-00-00-00","signal_strength":0}],
-				}
+		"version":"1.1.0",
+		"request_address":False, 
+		"wifi_towers":[{"mac_address":"00-00-00-00-00-00","signal_strength":0}],
+		}
 				
 for x in neighborWiFi:
     a = re.compile(macMatch).search(x.split()[1])
