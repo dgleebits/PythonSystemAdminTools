@@ -18,12 +18,8 @@ for line in mylist:
 fout.close()
 
 #process each line and strip return characters
-#append each work matching "end with s"
-#create mylist filled with words ending in s
-#for line in data:
-#    b = list(line.strip())
-#    if b[0] == "s":
-#        mylist2.append(line)
+#append each work matching "begin with c"
+#create mylist filled with words begin with c
 #mylist2=[]
 #for line in data:
 #    b = list(line.strip())
