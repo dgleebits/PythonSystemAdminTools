@@ -9,26 +9,47 @@
 from commands import getoutput
 import re, urllib2, webbrowser
 import json as simplejson
+import xml.etree.ElementTree as ET
+
 
 # bash command to grab the neighboring wifi data around the laptop
-path2WiFi = '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport scan'
+path2WiFi = '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport --scan -x'
 
 # regular expression to match MAC address
-macMatch = '([a-fA-F0-9]{2}[:|\-]?){6}'
-count = 0
+#macMatch = '([a-fA-F0-9]{2}[:|\-]?){6}'
+#count = 0
 
 # running network WiFi scan
 print "[+] Scanning network"
 neighborWiFi = getoutput(path2WiFi)
-neighborWiFi = neighborWiFi.split('\n')
+#neighborWiFi = neighborWiFi.split('\n')
 
 # cleaning up bad data		
-for line in neighborWiFi:
-	a = re.compile(macMatch).search(line)
-	if a:
-		count +=1
-	else:
-		neighborWiFi.pop(count)
+#for line in neighborWiFi:
+#	a = re.compile(macMatch).search(line)
+#	if a:
+#		count +=1
+#	else:
+#		neighborWiFi.pop(count)
+
+# using xml parsing in ElementTree to find each BSSID 
+#<key>BSSID</key>
+#<string>0:17:c5:be:e0:18</string>
+#<key>NOISE</key>
+#<integer>-92</integer>
+
+
+tree = ET.parse('../wifi.xml')
+root = tree.getroot()
+
+print type(root)
+print root
+
+
+
+
+
+
 		
 print "[+] Creating HTML request"
 locationRequest={
@@ -38,23 +59,23 @@ locationRequest={
 		}
 
 # this is cleaning up the data file splitting the data into MAC Address and Signal Strength				
-for x in neighborWiFi:
-    a = re.compile(macMatch).search(x.split()[1])
-    b = re.compile(macMatch).search(x.split()[2])
-    if a:
-        tempDict = {"mac_address":x.split()[1].replace(":","-"),"signal_strength":abs(int(x.split()[2]))}
-        locationRequest["wifi_towers"].append(tempDict)
-    elif b:
-        tempDict = {"mac_address":x.split()[2].replace(":","-"),"signal_strength":abs(int(x.split()[3]))}
-        locationRequest["wifi_towers"].append(tempDict)
+#for x in neighborWiFi:
+#    a = re.compile(macMatch).search(x.split()[1])
+#    b = re.compile(macMatch).search(x.split()[2])
+#    if a:
+#        tempDict = {"mac_address":x.split()[1].replace(":","-"),"signal_strength":abs(int(x.split()[2]))}
+#        locationRequest["wifi_towers"].append(tempDict)
+#    elif b:
+#        tempDict = {"mac_address":x.split()[2].replace(":","-"),"signal_strength":abs(int(x.split()[3]))}
+#        locationRequest["wifi_towers"].append(tempDict)
            
 # this takes the cleaned up data and serialize to JSON request for Google API
 print "[+] Sending the request to Google"
-data = simplejson.JSONEncoder().encode(locationRequest)
-output = simplejson.loads(urllib2.urlopen('https://www.google.com/loc/json', data).read())
+#data = simplejson.JSONEncoder().encode(locationRequest)
+#output = simplejson.loads(urllib2.urlopen('https://www.google.com/loc/json', data).read())
 
 # prints out the latitude and longitute data returned from Google and opens browser to visually location MAC
 print "[+] Google Map"
-print "http://maps.google.com/maps?q="+str(output["location"]["latitude"])+","+str(output["location"]["longitude"])
-googleMapWebpage = "http://maps.google.com/maps?q="+str(output["location"]["latitude"])+","+str(output["location"]["longitude"])
-webbrowser.open(googleMapWebpage)
+#print "http://maps.google.com/maps?q="+str(output["location"]["latitude"])+","+str(output["location"]["longitude"])
+#googleMapWebpage = "http://maps.google.com/maps?q="+str(output["location"]["latitude"])+","+str(output["location"]["longitude"])
+#webbrowser.open(googleMapWebpage)
