@@ -11,7 +11,7 @@ import json as simplejson
 import xml.etree.ElementTree as ET
 
 airport_scan_xml = '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport --scan -x'
-macMatch = '([a-fA-F0-9]{1,2}[:|\-]?){6}'
+address_match = '([a-fA-F0-9]{1,2}[:|\-]?){6}'
 
 def get_bssid_signal_strength():
     signal_by_address = {}
@@ -20,7 +20,7 @@ def get_bssid_signal_strength():
     for level_1 in root:
         for level_2 in level_1:
             for level_3 in level_2.findall('string'):
-                if re.compile(macMatch).search(level_3.text):
+                if re.compile(address_match).search(level_3.text):
                     mac_address = level_3.text
             for level_3 in level_2:
                 if level_3.text == None:
