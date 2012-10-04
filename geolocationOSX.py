@@ -13,36 +13,17 @@ import xml.etree.ElementTree as ET
 airport_scan_xml = '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport --scan -x'
 address_match = '([a-fA-F0-9]{1,2}[:|\-]?){6}'
 
-def get_bssid_signal_strength():
+def get_signal_strengths():
     signal_by_address = {}
     root = ET.fromstring(getoutput(airport_scan_xml))
+    networks = root.getchildren()[0]
 
-    for level_1 in root:
-        for level_2 in level_1:
-            for level_3 in level_2.findall('string'):
-                if re.compile(address_match).search(level_3.text):
-                    mac_address = level_3.text
-            for level_3 in level_2:
-                if level_3.text == None:
-                    pass
-                else:
-                    if len(level_3.text) < 6 and len(level_3.text) > 1:
-                        if "NOISE" in level_3.text:
-                            flag = 2
-                        if "RSSI" in level_3.text:
-                            flag = 1
-                        if len(level_3.text) < 4:
-                            try:
-                                signal_number = int(level_3.text)
-                                if signal_number < 0:
-                                    final_signal_strength = abs(int(level_3.text))
-                                if flag == 1:
-                                    signal_strength = final_signal_strength
-                            except:
-                                pass
-                        if "SSID" == level_3.text:
-                            flag = 0
-            signal_by_address[mac_address] = signal_strength
+    for network in networks:
+        # First "string" child is MAC address
+        address = network.find("string").text
+        # Eighth "integer" is signal strength
+        strength = abs(int(network.findall("integer")[7].text))
+        signal_by_address[address] = strength
 
     return signal_by_address
 
@@ -67,7 +48,7 @@ def post_json_and_get_lat_long(json):
 
 if __name__ == "__main__":
     print "[+] Scanning network"
-    signal_by_address = get_bssid_signal_strength()
+    signal_by_address = get_signal_strengths()
 
     json = convert_dict_to_json(signal_by_address)
 
